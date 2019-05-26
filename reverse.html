@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="app">
+        <p>原始数据{{data}}</p>
+        <p>计算属性：翻转数据{{reversedData}}</p>
+        <p>方法：翻转数据{{reverseMethod()}}</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:".app",
+        data:{
+            data:"123,456,789"
+        },
+        computed: {
+            reversedData:function(){
+                return this.data.split(',').reverse().join(',')
+            }
+        },
+        methods: {
+            reverseMethod:function(){
+                return this.data.split(',').reverse().join(',')
+            }
+        },
+    })
+</script>
+
+</html>

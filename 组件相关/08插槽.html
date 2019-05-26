@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>08</title>
+    <style>
+            #app{
+                width: 300px;
+                height: 600px;
+                border: 2px solid #ddd;
+                margin-top: 100px;
+                margin-left: 30%;
+                padding: 20px;
+        
+            }
+        </style>
+</head>
+
+    <body>
+        <div id="app">
+            <h3>我是父组件</h3>
+            <br>
+            <h4>单个插槽：</h4>
+            <children-component><p>我是来自父组件的</p></children-component>
+            <br>
+            <h4>具名插槽：</h4>
+            <name-component>
+                <h5 slot="header">我是正文内容</h5>
+                <p>正文有两段</p>
+                <p slot="footer">我是底部</p>
+            </name-component>
+            <h4>作用域插槽：</h4>
+            <scope-component>
+                <template slot="abc" slot-scope="pro">
+                    {{pro.text}}
+                </template>
+            </scope-component>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('children-component',{
+            props:[],
+            template:'<div>\
+                        <slot>我是插槽，如果父组件没有内容我就会出现</slot>\
+                        </div>',
+        }),
+        Vue.component('name-component',{
+            props:[],
+            template:'<div>\
+                <div class="header">\
+                    <slot name="header">\
+                    </slot>\
+                </div>\
+                <div class="container">\
+                    <slot>\
+                    </slot>\
+                </div>\
+                <div class="header">\
+                    <slot name="footer">\
+                    </slot>\
+                </div>\
+                        </div>',
+            //访问slot的方法
+            mounted:function(){
+                var header = this.$slots.header
+                console.log(header)
+                var text = header[0].elm.innerText
+                console.log(text)
+            }
+        }),
+        Vue.component('scope-component',{
+            props:[],
+            template:'<div>\<div>\
+                        <slot text="我是来自scope组件的数据" name="abc"></slot>\
+                        </div></div>',
+        })
+    
+    
+        var app = new Vue({
+            el:'#app',
+            data:{
+                msg:''
+            },
+            methods:{
+            }
+        })
+    </script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据验证</title>
+</head>
+<style>
+    #app{
+        width: 300px;
+        height: 400px;
+        border: 2px solid #ddd;
+        margin-top: 100px;
+        margin-left: 30%;
+        padding: 20px;
+
+    }
+</style>
+<body>
+    <div id="app">
+        <h3>我是父组件</h3>
+        <!--需求：通过input中输入的数据直接改变div的宽度-->
+        <input type="text" v-model="width">
+        <width-component :width="width"></width-component>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+
+    Vue.component('width-component',{
+        props:['width'],
+        template:'<div :style="style"></div>',
+        data:function(){
+            return{}
+            
+        },
+        computed: {
+            style:function(){
+                return{
+                    width:this.width+'px',
+                    background:'red',
+                    height:'30px'
+                }
+            }
+        },
+    })
+
+    var app = new Vue({
+        el:'#app',
+        data:{
+            width:10
+        }
+    })
+</script>
+</body>
+</html>

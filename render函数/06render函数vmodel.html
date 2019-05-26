@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>06render函数vmodel</title>
+    <style>
+            #app{
+                width: 300px;
+                height: 400px;
+                border: 2px solid #ddd;
+                margin-top: 100px;
+                margin-left: 30%;
+                padding: 20px;
+        
+            }
+        </style>
+</head>
+
+    <body>
+        <div id="app">
+            <h3>我是父组件</h3>
+            <br>
+            <!-- <children-component :name="name" @input="showName"></children-component> -->
+            <children-component :name="name" v-model="name"></children-component>
+            <br>{{name}}
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('children-component',{
+            props:['name'],
+            render:function(createElement){
+                var self = this //指的是当前VUE实例
+                return createElement('input',{
+                    domProps:{
+                        value:self.name
+                    },
+                    on:{
+
+                        input:function(event){
+                        
+                        var a = this
+                            self.$emit('input',event.target.value)
+                        }
+                    }
+                })
+            }
+        })
+    
+        var app = new Vue({
+            el:'#app',
+            data:{
+                name:'jack'
+            },
+            // methods:{
+            //     showName:function(value){
+            //         this.name=value
+            //     }
+            // }
+        })
+    </script>
+</html>

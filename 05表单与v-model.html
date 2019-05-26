@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="app">
+        V-model的用法:
+        <input type="text" v-model="value"><br>
+        {{value}}
+        <br>
+        <hr>
+        单选框用法：<br>
+        1.单个单选框:   可以用v:bind绑定
+        <input type="radio" :checked="onredio">
+        <br>
+        2.多个单选框:
+        如果是组合使用，就需要v-model来配合value使用，绑定选中的单选框的value值，此处绑定的初始值可以随意
+        <br>
+        A：<input type="radio" name="checks" value="A" v-model="checkName">
+        B：<input type="radio" name="checks" value="B" v-model="checkName">
+        C：<input type="radio" name="checks" value="C" v-model="checkName">
+        <br>{{checkName}}
+        <hr>
+        复选框用法：既可以用v-bind又可以v-model <br>
+        AAA:<input type="checkbox" value="AAA" v-model="checks">
+        BBB:<input type="checkbox" value="BBB" v-model="checks">
+        CCC:<input type="checkbox" value="CCC" v-model="checks">
+        <br>
+        现在选中了{{checks}}
+        <br>
+        v-model绑定的是一个数组
+        <br>
+        复选框：选中和不选中的value不一样：<br>
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">
+        <br>
+        {{toggle}}
+        <br>被选中了：{{toggle==value1}}
+        <br>没有被选中了：{{toggle==value2}}
+        <br>
+        <hr>
+        下拉框：<br>
+        <select v-model="selectedmul" :value="{num:111}">
+            <option value="下拉框">下拉框</option>
+            <option value="拉框">拉框</option>
+            <option value="框">框</option>
+        </select><br>
+        现在选中的是{{selectedmul}}---类型是{{typeof selectedmul}}
+        <br>
+        <select v-model="selectedmul2">
+            <option :value="{num:111}">下拉框</option>
+            <option :value="{num:222}">拉框</option>
+            <option :value="{num:222}">框</option>
+        </select><br>
+        现在选中的是{{selectedmul2}}--- 内容是{{selectedmul2.num}}
+        <br>
+        <br>-------------------
+        <br>
+        修饰符：<br>
+        lazy:
+        <br>v-model默认是在input输入同时同步输入框的数据，而lazy修饰符可以使其在失去焦点或者敲回车键之后再更新。
+        <br>
+        <input type="text" v-model.lazy="lazyStr">----{{lazyStr}}
+        <br>
+        number:将输入的字符串转换为Number类型
+        <br>
+        <input type="text" v-model.number="number1"><br>
+        {{typeof number1}}
+        <br>
+        trim:自动过滤输入中的首尾空格<br>
+        <input type="text" v-model.trim="isTrim">
+        {{isTrim.length}}
+
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'.app',
+        data:{
+            value:'',
+            onredio:true,
+            checkName:'A',
+            checks:[],
+            toggle:true,
+            value1:'被选中了',
+            value2:'没被选中了',
+            selectedmul:'',
+            selectedmul2:'',
+            lazyStr:'',
+            number1:'',
+            isTrim:''
+        }
+
+    })
+</script>    
+</body>
+</html>

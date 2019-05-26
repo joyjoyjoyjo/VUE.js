@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时间</title>
+</head>
+
+<body>
+    <div class="app">{{time | formateDate }}
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var plusDate = function (value) {
+        return value >= 10 ?  value:'0' + value ;
+    }
+    var app = new Vue({
+        el: ".app",
+        data: {
+            time: new Date()
+        },
+        filters: {
+            formateDate: function (value) {
+                var data = new Date(value);
+                var year = data.getFullYear();
+                var month = plusDate(data.getMonth() + 1)
+                var day = plusDate(data.getDate())
+                var hours = plusDate(data.getHours())
+                var minutes = plusDate(data.getMinutes())
+                var sec = plusDate(data.getSeconds())
+                return year +'-' +month+'-'+day+'-'+hours+'-'+minutes+'-'+sec
+            }
+        },
+        mounted: function () {
+            var _this = this;
+            this.timer = setInterval(function () {
+                _this.time = new Date();
+            }, 1000)
+        },
+        beforeDestroy: function () {
+            if (this.timer) {
+                clearInterval(this.timer)
+            }
+        },
+    })
+</script>
+
+</html> 
